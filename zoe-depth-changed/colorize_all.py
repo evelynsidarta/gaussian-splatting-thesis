@@ -1,9 +1,10 @@
 import torch
 import argparse
 import os
-import OpenEXR
+import OpenEXR as exr
 import Imath
 import numpy as np
+import pathlib
 from zoedepth.models.builder import build_model
 from zoedepth.utils.config import get_config
 from zoedepth.utils.misc import save_raw_16bit
@@ -17,7 +18,7 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 # retrieve depth and rgb values from an exr file
 def readEXR(filename):
     
-    exrf = OpenEXR.InputFile(filename)
+    exrf = exr.InputFile(filename)
     header = exrf.header()
     dw = header['dataWindow']
     in_size = (dw.max.y - dw.min.y + 1, dw.max.x - dw.min.x + 1)
@@ -43,7 +44,35 @@ def readEXR(filename):
     img = np.where(img < 0.0, 0.0, np.where(img > 1.0, 1, img))
     
     Z = None if 'Z' not in header['channels'] else channel_data['Z']
+    if Z == None:
+        print("Z values not found")
     return img, Z
+
+def read_depth_exr_file(filepath: pathlib.Path):
+    
+    exrfile = exr.InputFile(filepath.as_posix())
+    raw_bytes = exrfile.channel('B', Imath.PixelType(Imath.PixelType.FLOAT))
+    depth_vector = np.frombuffer(raw_bytes, dtype=np.float32)
+    height = exrfile.header()['displayWindow'].max.y + 1 - exrfile.header()['displayWindow'].min.y
+    width = exrfile.header()['displayWindow'].max.x + 1 - exrfile.header()['displayWindow'].min.x
+    depth_map = np.reshape(depth_vector, (height, width))
+
+    # normalized
+    # depth_min = depth_map.min()
+    # depth_max = depth_map.max()
+    # max_val = (2**(8*2)) - 1
+    
+    # if depth_max - depth_min > np.finfo("float").eps:
+    #     depth_map = max_val * (depth_map - depth_min) / (depth_max - depth_min)
+    # else:
+    #     depth_map = np.zeros(depth_map.shape, dtype=depth_map.dtype)
+
+    # depth_map = -1 * (depth_map - np.min(depth_map)) / (np.max(depth_map) - np.min(depth_map))
+    # depth_map = depth_map + 1
+
+    print(depth_map)
+
+    return depth_map
 
 def colorize_all(input, output, extension_input = ".exr", extension_output = ".png"):
 
@@ -52,7 +81,7 @@ def colorize_all(input, output, extension_input = ".exr", extension_output = ".p
 
     for idx, _ in enumerate(os.listdir(directory)):
         img_name = os.path.join(input, "depth" + str(idx) + "0022" + extension_input)
-        _, depth_numpy = readEXR(img_name)
+        depth_numpy = read_depth_exr_file(pathlib.Path(img_name))
         fpathcol = os.path.join(output, "image" + str(idx) + "0022_colorized" + extension_output)
         colored = colorize(depth_numpy)
         Image.fromarray(colored).save(fpathcol) # save colored output
@@ -67,5 +96,5 @@ if __name__ == "__main__":
     
     args, unknown_args = parser.parse_known_args()
 
-    colorize_all(args.input, args.output) # begin depth prediction
+    colorize_all(args.input, args.output)
     print("All depth maps successfully colorized.")
