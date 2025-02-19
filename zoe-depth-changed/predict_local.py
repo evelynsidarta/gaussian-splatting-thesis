@@ -28,7 +28,7 @@ def predict(input, output, model, extension = ".png"):
     directory = os.fsencode(input)
     os.makedirs(output, exist_ok = True)
 
-    for idx, files in enumerate(os.listdir(directory)):
+    for idx, _ in enumerate(os.listdir(directory)):
         print("\nStarting predictions for input " + input + ":")
         img_name = os.path.join(input, "image" + str(idx) + "0022" + extension)
         img = Image.open(img_name).convert("RGB") # load the image
