@@ -8,6 +8,7 @@ from PIL import Image
 from torch.utils.tensorboard import SummaryWriter
 
 NAMING_TAIL = "0022"
+VERBOSE = True
 
 def readImages(img_dir, gt_dir, extension_img = ".png", extension_gt = ".exr"):
     images = []
@@ -112,12 +113,21 @@ if __name__ == '__main__':
 
         gt_single, pred_single = compiled[idx]
         val_metrics = evaluate_single(gt_single, pred_single)
+        # print out results
+        if VERBOSE:
+            print("\nResults for image " + str(idx) + ":\n")
+            for k,v in sorted(val_metrics.items(), key=lambda x: x[1], reverse=True):
+                print(k,v)
 
         for k in val_metrics.keys():
             results[k] += val_metrics[k]
         n_samples += 1
 
     # average out the results
+    for k in results.keys():
+        results[k] = results[k] / n_samples
 
-
-        # TODO: print out the results
+    # TODO: print out the results
+    print("\nAverage results for this dataset:\n")
+    for k,v in sorted(results.items(), key=lambda x: x[1], reverse=True):
+        print(k,v)
