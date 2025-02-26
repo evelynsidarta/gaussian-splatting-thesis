@@ -35,11 +35,31 @@ FORMAT_10 = ".png"
 # FORMAT_13 = ".tiff"
 # FORMAT_14 = ".tiff"
 
+def sigmoid(x, k = 10, x0 = 0.5):
+    return 1 / (1 + np.exp(-k * (x - x0)))
+
+def log_transform(x, alpha = 10):
+    return 1 / (1 + alpha * x) / np.log(1 + alpha)
+
+def inverse_depth(x, epsilon = 1e-3):
+    return 1 / (x + epsilon)
+
+def piecewise_linear(x, x_min = 0.2, x_max = 0.8):
+    return np.clip((x - x_min) / (x_max - x_min), 0, 1)
+
 def read_images_data(img_dir):
     
     # 1 = ground truth
     img_name = os.path.join(img_dir, "gt" + FORMAT_1)
     img_d1 = cv2.imread(img_name)[:, :, 0].copy()
+    # transformations for gt:
+    #   1. hard clamp the max values so it is not too exaggerated
+    #   2. invert the depth map
+    #   3. normalize so that the min value of the map is 0
+    img_d1 = np.where(img_d1 >= np.max(img_d1), (0.5 * img_d1), img_d1)
+    img_d1 = inverse_depth(img_d1)
+    img_d1 = (img_d1 - np.min(img_d1)) / (np.max(img_d1) - np.min(img_d1))
+    # display
     plt.subplot(4, 3, 1)
     plt.imshow(img_d1)
     plt.axis('off')
@@ -57,6 +77,16 @@ def read_images_data(img_dir):
     img_name = os.path.join(img_dir, "2dgs" + FORMAT_3)
     img_d3 = cv2.resize(cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy(), 
                             (1920, 1080), interpolation = cv2.INTER_NEAREST)
+    # transformations for 2dgs:
+    #   1. Normalize values to [0,1]
+    #   2. In the format saved by 2DGS, infinite value is written as 0 -> fix the value to max value 1
+    #   3. invert the depth map
+    #   4. normalize so that the min value of the map is 0
+    img_d3 = img_d3 / np.max(img_d3)
+    img_d3 = np.where(img_d3 <= np.min(img_d3), 1., img_d3)
+    img_d3 = inverse_depth(img_d3)
+    img_d3 = (img_d3 - np.min(img_d3)) / (np.max(img_d3) - np.min(img_d3))
+    # display
     plt.subplot(4, 3, 3)
     plt.imshow(img_d3)
     plt.axis('off')
@@ -113,8 +143,12 @@ def read_images_data(img_dir):
     # 10 = Zoe Depth
     img_name = os.path.join(img_dir, "zoe" + FORMAT_10)
     img_d10 = cv2.imread(img_name, cv2.IMREAD_UNCHANGED)
-    img_d10 = cv2.normalize(img_d10, None, 0, 255, cv2.NORM_MINMAX)
-    img_d10 = np.uint8(img_d10)
+    # transformations for zoe depth:
+    #   1. invert the depth map
+    #   2. normalize the depth map to [0, 1]
+    img_d10 = inverse_depth(img_d10)
+    img_d10 = cv2.normalize(img_d10, None, 0, 1, cv2.NORM_MINMAX)
+    # display
     plt.subplot(4, 3, 10)
     plt.imshow(img_d10)
     plt.axis('off')
