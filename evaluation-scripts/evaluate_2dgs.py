@@ -5,11 +5,13 @@ import pathlib
 import torch.nn as nn
 import OpenEXR as exr
 import Imath
+import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
 # from torch.utils.tensorboard import SummaryWriter
 
-NAMING_TAIL = "0022"
+NAMING_TAIL1 = "0022"
+NAMING_TAIL2 = ""
 VERBOSE = True
 
 def read_depth_exr_file(filepath: pathlib.Path):
@@ -21,39 +23,35 @@ def read_depth_exr_file(filepath: pathlib.Path):
     width = exrfile.header()['displayWindow'].max.x + 1 - exrfile.header()['displayWindow'].min.x
     depth_map = np.reshape(depth_vector, (height, width))
 
-    # normalized
-    # depth_min = depth_map.min()
-    # depth_max = depth_map.max()
-    # max_val = (2**(8*2)) - 1
-    
-    # if depth_max - depth_min > np.finfo("float").eps:
-    #     depth_map = max_val * (depth_map - depth_min) / (depth_max - depth_min)
-    # else:
-    #     depth_map = np.zeros(depth_map.shape, dtype=depth_map.dtype)
-
-    # depth_map = -1 * (depth_map - np.min(depth_map)) / (np.max(depth_map) - np.min(depth_map))
-    # depth_map = depth_map + 1
-
-    # print(depth_map)
-
     return depth_map
 
-def readImages(img_dir, gt_dir, extension_img = ".png", extension_gt = ".exr"):
+def read_depth_tiff_file(filepath: pathlib.Path):
+    pass
+
+def readImages(img_dir, gt_dir, extension_img = ".tiff", extension_gt = ".exr"):
     images = []
     gts = []
 
     # populate gt list, gt provided is in metric distance
     for idx, _ in enumerate(os.listdir(gt_dir)):
-        gt_name = os.path.join(gt_dir, "depth" + str(idx) + NAMING_TAIL + extension_gt)
+        gt_name = os.path.join(gt_dir, "depth" + str(idx) + NAMING_TAIL1 + extension_gt)
         gt_retrieved = read_depth_exr_file(pathlib.Path(gt_name))
         gts.append(gt_retrieved.copy())
+        # gt_data = cv2.imread(gt_name)[:, :, 0].copy()
+        # plt.imshow(gt_data)
+        # plt.show()
+        # gts.append(gt_data)
 
     # open the img_dir and gt_dir files and compile the files into np.array inside the files into two separate arrays
     for idx, _ in enumerate(os.listdir(img_dir)):
-        img_name = os.path.join(img_dir, "image" + str(idx) + NAMING_TAIL + extension_img)
-        print("\nretrieving image from " + img_name)
-        images.append(cv2.imread(img_name)[:, :, 0].copy())
-    print("length: " + str(len(images)) + ", " + str(len(gts)))
+        img_name = os.path.join(img_dir, "depth_" + "{:05d}".format(idx) + NAMING_TAIL2 + extension_img)
+        # print("\nretrieving image from " + img_name)
+        img_data = cv2.resize(cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy(), (1920, 1080), interpolation = cv2.INTER_NEAREST)
+        # plt.imshow(img_data)
+        # plt.show()
+        images.append(img_data)
+        
+    # print("length: " + str(len(images)) + ", " + str(len(gts)))
     return images, gts
 
 """ Goal: return dictionary containing following metrics:
@@ -100,7 +98,7 @@ def evaluate_metrics(gt, pred):
 
 # transform shape of gt and pred, then input to calculate metrics
 
-def evaluate_single(gt, pred, interpolate=True, min_depth_eval=0.1, max_depth_eval=10, **kwargs):
+def evaluate_single(gt, pred, interpolate=True, min_depth_eval=0.1, max_depth_eval=100, **kwargs):
     if 'config' in kwargs:
         config = kwargs['config']
         min_depth_eval = config.min_depth_eval
@@ -122,6 +120,7 @@ def evaluate_single(gt, pred, interpolate=True, min_depth_eval=0.1, max_depth_ev
     print("\npred squeezed: ")
     print(pred)
 
+    gt = gt.squeeze()
     gt[gt < min_depth_eval] = min_depth_eval
     gt[gt > max_depth_eval] = max_depth_eval
     gt[np.isinf(gt)] = max_depth_eval
@@ -152,6 +151,10 @@ if __name__ == '__main__':
     args, _ = parser.parse_known_args()
     
     pred, gt = readImages(args.prediction, args.ground_truth)
+    plt.imshow(pred[0])
+    plt.show()
+    plt.imshow(gt[0])
+    plt.show()
     compiled = list(zip(gt, pred))
 
     # create dict to store results

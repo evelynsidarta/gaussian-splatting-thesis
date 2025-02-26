@@ -2,6 +2,7 @@ import torch
 import argparse
 import os
 import OpenEXR as exr
+import cv2
 import Imath
 import numpy as np
 import pathlib
