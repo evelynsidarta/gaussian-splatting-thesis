@@ -26,6 +26,6 @@ def read_depth_exr_file(filepath: pathlib.Path):
     # depth_map = -1 * (depth_map - np.min(depth_map)) / (np.max(depth_map) - np.min(depth_map))
     # depth_map = depth_map + 1
 
-    print(depth_map)
+    # print(depth_map)
 
     return depth_map
