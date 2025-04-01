@@ -46,10 +46,6 @@ def readImages(img_dir, gt_dir, extension_img = ".png", extension_gt = ".exr"):
         gt_retrieved = inverse_depth(gt_retrieved)
         gt_retrieved = (gt_retrieved - np.min(gt_retrieved)) / (np.max(gt_retrieved) - np.min(gt_retrieved))
         gts.append(gt_retrieved.copy())
-        # gt_data = cv2.imread(gt_name)[:, :, 0].copy()
-        # plt.imshow(gt_data)
-        # plt.show()
-        # gts.append(gt_data)
 
     # open the img_dir and gt_dir files and compile the files into np.array inside the files into two separate arrays
     for idx, _ in enumerate(os.listdir(img_dir)):
@@ -57,8 +53,6 @@ def readImages(img_dir, gt_dir, extension_img = ".png", extension_gt = ".exr"):
         # print("\nretrieving image from " + img_name)
         img_data = cv2.resize(cv2.imread(img_name)[:, :, 0].copy(), (1920, 1080))
         img_data = (img_data - np.min(img_data)) / (np.max(img_data) - np.min(img_data))
-        # plt.imshow(img_data)
-        # plt.show()
         images.append(img_data)
         
     # print("length: " + str(len(images)) + ", " + str(len(gts)))
@@ -139,15 +133,6 @@ def evaluate_single(gt, pred, interpolate=True, min_depth_eval=0.1, max_depth_ev
     print("\gt squeezed: ")
     print(gt)
 
-    #gt_depth = gt.squeeze()
-    #valid_mask = np.logical_and(
-    #    gt_depth > min_depth_eval, gt_depth < max_depth_eval)
-    #eval_mask = np.ones(valid_mask.shape)
-    #valid_mask = np.logical_and(valid_mask, eval_mask)
-
-    #print("\ngt_depth valid_mask:")
-    #print(gt_depth[valid_mask])
-    #return evaluate_metrics(gt_depth[valid_mask], pred[valid_mask])
     return evaluate_metrics(gt, pred)
 
 if __name__ == '__main__':
@@ -161,10 +146,7 @@ if __name__ == '__main__':
     args, _ = parser.parse_known_args()
     
     pred, gt = readImages(args.prediction, args.ground_truth)
-    #plt.imshow(pred[0])
-    #plt.show()
-    #plt.imshow(gt[0])
-    #plt.show()
+
     compiled = list(zip(gt, pred))
 
     # create dict to store results

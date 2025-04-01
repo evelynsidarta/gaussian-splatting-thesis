@@ -130,15 +130,6 @@ def evaluate_single(gt, pred, interpolate=True, min_depth_eval=0.1, max_depth_ev
     print("\gt squeezed: ")
     print(gt)
 
-    #gt_depth = gt.squeeze()
-    #valid_mask = np.logical_and(
-    #    gt_depth > min_depth_eval, gt_depth < max_depth_eval)
-    #eval_mask = np.ones(valid_mask.shape)
-    #valid_mask = np.logical_and(valid_mask, eval_mask)
-
-    #print("\ngt_depth valid_mask:")
-    #print(gt_depth[valid_mask])
-    #return evaluate_metrics(gt_depth[valid_mask], pred[valid_mask])
     return evaluate_metrics(gt, pred)
 
 if __name__ == '__main__':
@@ -147,8 +138,6 @@ if __name__ == '__main__':
                         required=True, help="Name of the directory containing gt images")
     parser.add_argument("-p", "--prediction", type=str,
                         required=True, help="training results directory.")
-    #parser.add_argument("-o", "--output", type=str,
-    #                    required=True, help="Directory for metrics output")
     args, _ = parser.parse_known_args()
     
     pred, gt = readImages(args.prediction, args.ground_truth)

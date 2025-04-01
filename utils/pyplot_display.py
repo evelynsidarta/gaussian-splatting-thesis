@@ -50,10 +50,6 @@ def read_images_data(img_dir):
     # 1 = ground truth
     img_name = os.path.join(img_dir, "gt" + FORMAT_1)
     img_d1 = cv2.imread(img_name)[:, :, 0].copy()
-    # transformations for gt:
-    #   1. hard clamp the max values so it is not too exaggerated
-    #   2. invert the depth map
-    #   3. normalize so that the min value of the map is 0
     img_d1 = np.where(img_d1 >= np.max(img_d1), (0.5 * img_d1), img_d1)
     img_d1 = inverse_depth(img_d1)
     img_d1 = (img_d1 - np.min(img_d1)) / (np.max(img_d1) - np.min(img_d1))
@@ -66,9 +62,6 @@ def read_images_data(img_dir):
     # 2 = 3DGS
     img_name = os.path.join(img_dir, "3dgs" + FORMAT_2)
     img_d2 = cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy()
-    # transformations for 3dgs:
-    #   1. Normalize values to [0,1]
-    #   2. In the format saved by 2DGS, infinite value is written as 0 -> fix the value to max value 1
     img_d2 = img_d2 / np.max(img_d2)
     img_d2 = np.where(img_d2 <= np.min(img_d2), 1., img_d2)
     img_d2 = inverse_depth(img_d2)
@@ -84,14 +77,6 @@ def read_images_data(img_dir):
     img_name = os.path.join(img_dir, "2dgs" + FORMAT_3)
     img_d3 = cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy()
     
-    #img = cv2.imwrite('2dgsE.exr', img_d3)
-    #saved_img = cv2.imread('gs2exr.exr', cv2.IMREAD_UNCHANGED)
-    #print(saved_img.shape)
-    # transformations for 2dgs:
-    #   1. Normalize values to [0,1]
-    #   2. In the format saved by 2DGS, infinite value is written as 0 -> fix the value to max value 1
-    #   3. invert the depth map
-    #   4. normalize so that the min value of the map is 0
     img_d3 = img_d3 / np.max(img_d3)
     img_d3 = np.where(img_d3 <= np.min(img_d3), 1., img_d3)
     img_d3 = inverse_depth(img_d3)

@@ -58,19 +58,6 @@ def read_depth_exr_file(filepath: pathlib.Path):
     width = exrfile.header()['displayWindow'].max.x + 1 - exrfile.header()['displayWindow'].min.x
     depth_map = np.reshape(depth_vector, (height, width))
 
-    # normalized
-    # depth_min = depth_map.min()
-    # depth_max = depth_map.max()
-    # max_val = (2**(8*2)) - 1
-    
-    # if depth_max - depth_min > np.finfo("float").eps:
-    #     depth_map = max_val * (depth_map - depth_min) / (depth_max - depth_min)
-    # else:
-    #     depth_map = np.zeros(depth_map.shape, dtype=depth_map.dtype)
-
-    # depth_map = -1 * (depth_map - np.min(depth_map)) / (np.max(depth_map) - np.min(depth_map))
-    # depth_map = depth_map + 1
-
     print(depth_map)
 
     return depth_map
