@@ -44,7 +44,6 @@ def readImages(img_dir, gt_dir, extension_img = ".tiff", extension_gt = ".exr"):
         gt_retrieved = cv2.imread(gt_name)[:, :, 0].copy()
         # gt_retrieved = np.where(gt_retrieved >= np.max(gt_retrieved), (0.5 * gt_retrieved), gt_retrieved)
         gt_retrieved = inverse_depth(gt_retrieved)
-        # normalization
         gt_retrieved = (gt_retrieved - np.min(gt_retrieved)) / (np.max(gt_retrieved) - np.min(gt_retrieved))
         gts.append(gt_retrieved.copy())
         # gt_data = cv2.imread(gt_name)[:, :, 0].copy()
@@ -57,10 +56,10 @@ def readImages(img_dir, gt_dir, extension_img = ".tiff", extension_gt = ".exr"):
         img_name = os.path.join(img_dir, "depth_" + "{:05d}".format(idx) + NAMING_TAIL2 + extension_img)
         # print("\nretrieving image from " + img_name)
         img_data = cv2.resize(cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy(), (1920, 1080))
-        img_data = img_data / np.max(img_data)
-        img_data = np.where(img_data <= np.min(img_data), 1., img_data)
+        img_data = cv2.normalize(img_data, None, 0, 1, cv2.NORM_MINMAX)
         img_data = inverse_depth(img_data)
-        img_data = (img_data - np.min(img_data)) / (np.max(img_data) - np.min(img_data))
+        img_data = np.where(img_data >= np.max(img_data), 0, img_data)
+        img_data = cv2.normalize(img_data, None, 0, 1, cv2.NORM_MINMAX)
         # plt.imshow(img_data)
         # plt.show()
         images.append(img_data)
@@ -165,10 +164,10 @@ if __name__ == '__main__':
     args, _ = parser.parse_known_args()
     
     pred, gt = readImages(args.prediction, args.ground_truth)
-    plt.imshow(pred[0])
-    plt.show()
-    plt.imshow(gt[0])
-    plt.show()
+    #plt.imshow(pred[0])
+    #plt.show()
+    #plt.imshow(gt[0])
+    #plt.show()
     compiled = list(zip(gt, pred))
 
     # create dict to store results

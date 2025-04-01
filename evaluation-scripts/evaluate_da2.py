@@ -11,7 +11,7 @@ import cv2
 # from torch.utils.tensorboard import SummaryWriter
 
 NAMING_TAIL1 = "0022"
-NAMING_TAIL2 = ""
+NAMING_TAIL2 = "0022"
 VERBOSE = True
 
 os.environ["OPENCV_IO_ENABLE_OPENEXR"]="1"
@@ -33,7 +33,7 @@ def read_depth_exr_file(filepath: pathlib.Path):
 def read_depth_tiff_file(filepath: pathlib.Path):
     pass
 
-def readImages(img_dir, gt_dir, extension_img = ".tiff", extension_gt = ".exr"):
+def readImages(img_dir, gt_dir, extension_img = ".png", extension_gt = ".exr"):
     images = []
     gts = []
 
@@ -44,7 +44,6 @@ def readImages(img_dir, gt_dir, extension_img = ".tiff", extension_gt = ".exr"):
         gt_retrieved = cv2.imread(gt_name)[:, :, 0].copy()
         # gt_retrieved = np.where(gt_retrieved >= np.max(gt_retrieved), (0.5 * gt_retrieved), gt_retrieved)
         gt_retrieved = inverse_depth(gt_retrieved)
-        # normalization
         gt_retrieved = (gt_retrieved - np.min(gt_retrieved)) / (np.max(gt_retrieved) - np.min(gt_retrieved))
         gts.append(gt_retrieved.copy())
         # gt_data = cv2.imread(gt_name)[:, :, 0].copy()
@@ -54,12 +53,9 @@ def readImages(img_dir, gt_dir, extension_img = ".tiff", extension_gt = ".exr"):
 
     # open the img_dir and gt_dir files and compile the files into np.array inside the files into two separate arrays
     for idx, _ in enumerate(os.listdir(img_dir)):
-        img_name = os.path.join(img_dir, "depth_" + "{:05d}".format(idx) + NAMING_TAIL2 + extension_img)
+        img_name = os.path.join(img_dir, "image" + str(idx) + NAMING_TAIL2 + extension_img)
         # print("\nretrieving image from " + img_name)
-        img_data = cv2.resize(cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy(), (1920, 1080))
-        img_data = img_data / np.max(img_data)
-        img_data = np.where(img_data <= np.min(img_data), 1., img_data)
-        img_data = inverse_depth(img_data)
+        img_data = cv2.resize(cv2.imread(img_name)[:, :, 0].copy(), (1920, 1080))
         img_data = (img_data - np.min(img_data)) / (np.max(img_data) - np.min(img_data))
         # plt.imshow(img_data)
         # plt.show()
@@ -165,10 +161,10 @@ if __name__ == '__main__':
     args, _ = parser.parse_known_args()
     
     pred, gt = readImages(args.prediction, args.ground_truth)
-    plt.imshow(pred[0])
-    plt.show()
-    plt.imshow(gt[0])
-    plt.show()
+    #plt.imshow(pred[0])
+    #plt.show()
+    #plt.imshow(gt[0])
+    #plt.show()
     compiled = list(zip(gt, pred))
 
     # create dict to store results

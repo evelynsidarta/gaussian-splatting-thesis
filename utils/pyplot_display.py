@@ -33,21 +33,17 @@ FORMAT_12 = ".tiff"
 # FORMAT_13 = ".tiff"
 # FORMAT_14 = ".tiff"
 
-def sigmoid(x, k = 10, x0 = 0.5):
+def sigmoid(x, k = 10, x0 = 0.75):
     return 1 / (1 + np.exp(-k * (x - x0)))
 
-def sigmoid_transform(value, x=10, y=20, alpha=10):
-    midpoint = (x + y) / 2
-    return 1 / (1 + np.exp(-alpha * (value - midpoint)))
-
-def log_transform(x, alpha = 2):
-    return 1 / (1 + alpha * x) / np.log(1 + alpha)
+def log_transform(x):
+    return np.log(x)
 
 def inverse_depth(x, epsilon = 1e-3):
     return 1 / (x + epsilon)
 
-def piecewise_linear(x, x_min = 0.2, x_max = 0.8):
-    return np.clip((x - x_min) / (x_max - x_min), 0, 1)
+def gamma_correction(value, gamma=0.5):
+    return value ** gamma
 
 def read_images_data(img_dir):
     
@@ -69,21 +65,15 @@ def read_images_data(img_dir):
 
     # 2 = 3DGS
     img_name = os.path.join(img_dir, "3dgs" + FORMAT_2)
-    img_d2 = cv2.resize(cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy(), 
-                            (1920, 1080), interpolation = cv2.INTER_NEAREST)
+    img_d2 = cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy()
     # transformations for 3dgs:
     #   1. Normalize values to [0,1]
     #   2. In the format saved by 2DGS, infinite value is written as 0 -> fix the value to max value 1
     img_d2 = img_d2 / np.max(img_d2)
     img_d2 = np.where(img_d2 <= np.min(img_d2), 1., img_d2)
-    #img_d2 = np.where(img_d2 >= np.max(img_d2), (0.5 * img_d2), img_d2)
     img_d2 = inverse_depth(img_d2)
-    #img_d2 = sigmoid_transform(img_d2)
-    #img_d2 = (img_d2 - np.min(img_d2)) / (np.max(img_d2) - np.min(img_d2))
-
-    #img_d2 = np.where(img_d2 <= np.min(img_d2), (500 + img_d2), img_d2)
-    #img_d2 = (img_d2 - np.min(img_d2)) / (np.max(img_d2) - np.min(img_d2))
-    #img_d2 = inverse_depth(img_d2)
+    img_d2 = cv2.normalize(img_d2, None, 0, 1, cv2.NORM_MINMAX)
+    img_d2 = sigmoid(img_d2)
     # display
     plt.subplot(4, 3, 2)
     plt.imshow(img_d2)
@@ -92,8 +82,11 @@ def read_images_data(img_dir):
 
     # 3 = 2DGS
     img_name = os.path.join(img_dir, "2dgs" + FORMAT_3)
-    img_d3 = cv2.resize(cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy(), 
-                            (1920, 1080), interpolation = cv2.INTER_NEAREST)
+    img_d3 = cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy()
+    
+    #img = cv2.imwrite('2dgsE.exr', img_d3)
+    #saved_img = cv2.imread('gs2exr.exr', cv2.IMREAD_UNCHANGED)
+    #print(saved_img.shape)
     # transformations for 2dgs:
     #   1. Normalize values to [0,1]
     #   2. In the format saved by 2DGS, infinite value is written as 0 -> fix the value to max value 1
@@ -112,6 +105,7 @@ def read_images_data(img_dir):
     # 4 = Depth Anything v1 Base
     img_name = os.path.join(img_dir, "DA1b" + FORMAT_4)
     img_d4 = cv2.imread(img_name)[:, :, 0].copy()
+    img_d4 = (img_d4 - np.min(img_d4)) / (np.max(img_d4) - np.min(img_d4))
     plt.subplot(4, 3, 4)
     plt.imshow(img_d4)
     plt.axis('off')
@@ -120,6 +114,7 @@ def read_images_data(img_dir):
     # 5 = Depth Anything v1 Large
     img_name = os.path.join(img_dir, "DA1l" + FORMAT_5)
     img_d5 = cv2.imread(img_name)[:, :, 0].copy()
+    img_d5 = (img_d5 - np.min(img_d5)) / (np.max(img_d5) - np.min(img_d5))
     plt.subplot(4, 3, 5)
     plt.imshow(img_d5)
     plt.axis('off')
@@ -128,6 +123,7 @@ def read_images_data(img_dir):
     # 6 = Depth Anything v1 Small
     img_name = os.path.join(img_dir, "DA1s" + FORMAT_6)
     img_d6 = cv2.imread(img_name)[:, :, 0].copy()
+    img_d6 = (img_d6 - np.min(img_d6)) / (np.max(img_d6) - np.min(img_d6))
     plt.subplot(4, 3, 6)
     plt.imshow(img_d6)
     plt.axis('off')
@@ -136,6 +132,7 @@ def read_images_data(img_dir):
     # 7 = Depth Anything v2 Base
     img_name = os.path.join(img_dir, "DA2b" + FORMAT_7)
     img_d7 = cv2.imread(img_name)[:, :, 0].copy()
+    img_d7 = (img_d7 - np.min(img_d7)) / (np.max(img_d7) - np.min(img_d7))
     plt.subplot(4, 3, 7)
     plt.imshow(img_d7)
     plt.axis('off')
@@ -144,6 +141,7 @@ def read_images_data(img_dir):
     # 8 = Depth Anything v2 Large
     img_name = os.path.join(img_dir, "DA2l" + FORMAT_8)
     img_d8 = cv2.imread(img_name)[:, :, 0].copy()
+    img_d8 = (img_d8 - np.min(img_d8)) / (np.max(img_d8) - np.min(img_d8))
     plt.subplot(4, 3, 8)
     plt.imshow(img_d8)
     plt.axis('off')
@@ -152,6 +150,7 @@ def read_images_data(img_dir):
     # 9 = Depth Anything v2 Small
     img_name = os.path.join(img_dir, "DA2s" + FORMAT_9)
     img_d9 = cv2.imread(img_name)[:, :, 0].copy()
+    img_d9 = (img_d9 - np.min(img_d9)) / (np.max(img_d9) - np.min(img_d9))
     plt.subplot(4, 3, 9)
     plt.imshow(img_d9)
     plt.axis('off')
@@ -169,19 +168,23 @@ def read_images_data(img_dir):
     plt.subplot(4, 3, 10)
     plt.imshow(img_d10)
     plt.axis('off')
-    plt.title("Zoe Depth", fontsize=12)
+    plt.title("ZoeDepth", fontsize=12)
 
     # 11 = RaDe-GS
     img_name = os.path.join(img_dir, "radegs" + FORMAT_11)
-    img_d11 = cv2.resize(cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy(), 
-                            (1920, 1080), interpolation = cv2.INTER_NEAREST)
+    img_d11 = cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy()
+    # TODO: REMOVE LATER, save as exr
+    # img = cv2.imwrite('radegsE.exr', img_d11)
+
     # transformations for zoe depth:
     #   1. invert the depth map
     #   2. normalize the depth map to [0, 1]
     img_d11 = img_d11 / np.max(img_d11)
     img_d11 = np.where(img_d11 <= np.min(img_d11), 1., img_d11)
     img_d11 = inverse_depth(img_d11)
+    img_d11 = np.where(img_d11 <= np.min(img_d11), 0, img_d11)
     img_d11 = cv2.normalize(img_d11, None, 0, 1, cv2.NORM_MINMAX)
+    img_d11 = sigmoid(img_d11, k = 50, x0 = 0.7)
     # display
     plt.subplot(4, 3, 11)
     plt.imshow(img_d11)
@@ -190,20 +193,22 @@ def read_images_data(img_dir):
 
     # 12 = gs2mesh
     img_name = os.path.join(img_dir, "gs2" + FORMAT_12)
-    img_d12 = cv2.resize(cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy(), 
-                            (1920, 1080), interpolation = cv2.INTER_NEAREST)
+    img_d12 = cv2.imread(img_name, flags=(cv2.IMREAD_GRAYSCALE | cv2.IMREAD_ANYDEPTH)).copy()
+    img = cv2.imwrite('gs2E.exr', img_d3)
     # transformations for zoe depth:
     #   1. invert the depth map
     #   2. normalize the depth map to [0, 1]
-    img_d12 = img_d12 / np.max(img_d12)
-    img_d12 = inverse_depth(img_d12)
-    img_d12 = np.where(img_d12 >= np.max(img_d12), 0., img_d12)
     img_d12 = cv2.normalize(img_d12, None, 0, 1, cv2.NORM_MINMAX)
+    img_d12 = inverse_depth(img_d12)
+    img_d12 = log_transform(img_d12)
+    img_d12 = np.where(img_d12 >= np.max(img_d12), 0, img_d12)
+    img_d12 = cv2.normalize(img_d12, None, 0, 1, cv2.NORM_MINMAX)
+    img_d12 = sigmoid(img_d12, k = 30, x0 = 1.0)
     # display
     plt.subplot(4, 3, 12)
     plt.imshow(img_d12)
     plt.axis('off')
-    plt.title("gs2mesh", fontsize=12)
+    plt.title("GS2Mesh", fontsize=12)
 
     plt.tight_layout()
     plt.show()
