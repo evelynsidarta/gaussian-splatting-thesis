@@ -1,3 +1,5 @@
+WIP, will be updated soon
+
 How to Use 3DGS Training Template in Google Colab:
 1. upload training_template.ipynb to somewhere in your Google Drive
 2. right click and select Open With -> Google Colaboratory (make sure to get Google Colaboratory beforehand)
