@@ -3,7 +3,9 @@ How to Use 3DGS Training Template in Google Colab:
 2. right click and select Open With -> Google Colaboratory (make sure to get Google Colaboratory beforehand)
 
 How to use adjusted codes:
-
+clone the respective original implementation (see below in 'Main Sources' list) from the respective repositories, replace the changed files (from each xxxx-changed folders) from this repository into the cloned repository.
+Example: if you wish to use the adjusted files for 2DGS implementation, clone the original 2DGS repository first and then replace the "train.py" and "dataset_readers.py" files in the cloned repository with the code from this repository (in "2DGS-changed" folder).
+Warning: do not replace entire folders with the folder found in this repository, simply go inside the folder and change only the python files.
 
 Main Sources:
 1. Original Implementation of Gaussian Splatting - https://github.com/graphdeco-inria/gaussian-splatting
