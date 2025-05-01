@@ -9,7 +9,8 @@ Example: if you wish to use the adjusted files for 2DGS implementation, clone th
 
 Warning: do not replace entire folders with the folder found in this repository, simply go inside the folder and change only the python files.
 
-How to train model: simply follow instructions of the original implementation in https://github.com/graphdeco-inria/gaussian-splatting
+How to train 3DGS models: simply follow instructions of the original implementation in https://github.com/graphdeco-inria/gaussian-splatting
+For other models, refer to their respective repositories.
 
 Main Sources:
 1. Original Implementation of Gaussian Splatting - https://github.com/graphdeco-inria/gaussian-splatting
