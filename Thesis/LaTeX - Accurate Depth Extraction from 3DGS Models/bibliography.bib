@@ -1,0 +1,883 @@
+% Definitions
+
+@book{CambridgeParallax,
+        author          ={{Cambridge Dictionary}},
+        title           ={Parallax},
+        publisher       ={Cambridge University Press},
+        year            ={2016},
+        url             ={https://dictionary.cambridge.org/},
+        note            ={Accessed: 2025-03-18}
+}
+
+@inproceedings{splatting,
+        author          ={Zwicker, Matthias and R\"{a}s\"{a}nen, Jussi and Botsch, Mario and Dachsbacher, Carsten and Pauly, Mark},
+        title           ={Perspective accurate splatting},
+        year            ={2004},
+        isbn            ={1568812272},
+        publisher       ={Canadian Human-Computer Communications Society},
+        address         ={Waterloo, CAN},
+        booktitle       ={Proceedings of Graphics Interface 2004},
+        pages           ={247–254},
+        numpages        ={8},
+        keywords        ={conic sections and projective mappings, graphics hardware, point rendering, texture filtering},
+        location        ={London, Ontario, Canada},
+        series          ={GI '04}
+}
+
+@inproceedings{gaussian,
+        author          ={Zwicker, M. and Pfister, H. and van Baar, J. and Gross, M.},
+        booktitle       ={Proceedings Visualization, 2001. VIS '01.}, 
+        title           ={EWA volume splatting}, 
+        year            ={2001},
+        volume          ={},
+        number          ={},
+        pages           ={29-538},
+        keywords        ={Rendering (computer graphics);Surface fitting},
+        doi             ={10.1109/VISUAL.2001.964490}}
+
+@inproceedings{rayintersect,
+        author          ={Sigg, Christian and Weyrich, Tim and Botsch, Mario and Gross, Markus},
+        title           ={GPU-based ray-casting of quadratic surfaces},
+        year            ={2006},
+        isbn            ={3905673320},
+        publisher       ={Eurographics Association},
+        address         ={Goslar, DEU},
+        abstract        ={Quadratic surfaces are frequently used primitives in geometric modeling and scientific visualization, such as rendering of tensor fields, particles, and molecular structures. While high visual quality can be achieved using sophisticated ray tracing techniques, interactive applications typically use either coarsely tessellated polygonal approximations or pre-rendered depth sprites, thereby trading off visual quality and perspective correctness for higher rendering performance. In contrast, we propose an efficient rendering technique for quadric primitives based on GPU-accelerated splatting. While providing similar performance as point-sprites, our methods provides perspective correctness and superior visual quality using per-pixel ray-casting.},
+        booktitle       ={Proceedings of the 3rd Eurographics / IEEE VGTC Conference on Point-Based Graphics},
+        pages           ={59–65},
+        numpages        ={7},
+        location        ={Boston, Massachusetts},
+        series          ={SPBG'06}
+}
+
+@inproceedings{lowpass,
+        author          ={Botsch, M. and Hornung, A. and Zwicker, M. and Kobbelt, L.},
+        booktitle       ={Proceedings Eurographics/IEEE VGTC Symposium Point-Based Graphics, 2005.}, 
+        title           ={High-quality surface splatting on today's GPUs}, 
+        year            ={2005},
+        volume          ={},
+        number          ={},
+        pages           ={17-141},
+        keywords        ={Surface reconstruction;Rendering (computer graphics);Filtering;Hardware;Computer graphics;Computational geometry;Sampling methods;Acceleration;Information geometry;Piecewise linear techniques},
+        doi             ={10.1109/PBG.2005.194059}
+}
+
+@inproceedings{colmap1,
+        author          ={Sch\"{o}nberger, Johannes Lutz and Frahm, Jan-Michael},
+        title           ={Structure-from-Motion Revisited},
+        booktitle       ={Conference on Computer Vision and Pattern Recognition (CVPR)},
+        year            ={2016},
+}
+
+@inproceedings{colmap2,
+        author          ={Sch\"{o}nberger, Johannes Lutz and Zheng, Enliang and Pollefeys, Marc and Frahm, Jan-Michael},
+        title           ={Pixelwise View Selection for Unstructured Multi-View Stereo},
+        booktitle       ={European Conference on Computer Vision (ECCV)},
+        year            ={2016},
+}
+
+@inproceedings{dlnr,
+        title           ={High-Frequency Stereo Matching Network},
+        author          ={Zhao, Haoliang and Zhou, Huizhou and Zhang, Yongjun and Chen, Jie and Yang, Yitong and Zhao, Yong},
+        booktitle       ={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+        pages           ={1327--1336},
+        year            ={2023}
+}
+
+@misc{stereo-error,
+        title           ={Depth Refinement for Improved Stereo Reconstruction}, 
+        author          ={Amit Bracha and Noam Rotstein and David Bensaïd and Ron Slossberg and Ron Kimmel},
+        year            ={2021},
+        eprint          ={2112.08070},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2112.08070}, 
+}
+
+@inbook{tsdf,
+        author          ={Curless, Brian and Levoy, Marc},
+        title           = {A Volumetric Method for Building Complex Models from Range Images},
+        year            ={2023},
+        isbn            ={9798400708978},
+        publisher       ={Association for Computing Machinery},
+        address         ={New York, NY, USA},
+        edition         ={1},
+        url             ={https://doi.org/10.1145/3596711.3596726},
+        abstract        ={A number of techniques have been developed for reconstructing surfaces by integrating groups of aligned range images. A desirable set of properties for such algorithms includes: incremental updating, representation of directional uncertainty, the ability to fill gaps in the reconstruction, and robustness in the presence of outliers. Prior algorithms possess subsets of these properties. In this paper, we present a volumetric method for integrating range images that possesses all of these properties},
+        booktitle       ={Seminal Graphics Papers: Pushing the Boundaries, Volume 2},
+        articleno       ={14},
+        numpages        ={10}
+}
+
+@inproceedings{marchingcubes,
+        author          ={Lorensen, William E. and Cline, Harvey E.},
+        title           ={Marching cubes: A high resolution 3D surface construction algorithm},
+        year            ={1987},
+        isbn            ={0897912276},
+        publisher       ={Association for Computing Machinery},
+        address         ={New York, NY, USA},
+        url             ={https://doi.org/10.1145/37401.37422},
+        doi             ={10.1145/37401.37422},
+        abstract        ={We present a new algorithm, called marching cubes, that creates triangle models of constant density surfaces from 3D medical data. Using a divide-and-conquer approach to generate inter-slice connectivity, we create a case table that defines triangle topology. The algorithm processes the 3D medical data in scan-line order and calculates triangle vertices using linear interpolation. We find the gradient of the original data, normalize it, and use it as a basis for shading the models. The detail in images produced from the generated surface models is the result of maintaining the inter-slice connectivity, surface data, and gradient information present in the original 3D data. Results from computed tomography (CT), magnetic resonance (MR), and single-photon emission computed tomography (SPECT) illustrate the quality and functionality of marching cubes. We also discuss improvements that decrease processing time and add solid modeling capabilities.},
+        booktitle       ={Proceedings of the 14th Annual Conference on Computer Graphics and Interactive Techniques},
+        pages           ={163–169},
+        numpages        ={7},
+        series          ={SIGGRAPH '87}
+}
+
+@book{feedforward,
+        author          ={Norbert Hoffmann},
+        title           ={Simulation Neuronaler Netze},
+        year            ={1991},
+        publisher       ={Vieweg+Teubner Verlag},
+        address         ={Wiesbaden},
+        isbn            ={978-3-322-87789-5},
+        doi             ={10.1007/978-3-322-87789-5},
+        url             ={https://link.springer.com/book/10.1007/978-3-322-87789-5}
+}
+
+@article{mlp,
+        author          ={Cybenko, G.},
+        title           ={Approximation by superpositions of a sigmoidal function},
+        journal         ={Mathematics of Control, Signals and Systems},
+        year            ={1989},
+        url             ={https://doi.org/10.1007/BF02551274},
+        doi             ={10.1007/BF02551274}
+}
+
+% Traditional Methods
+
+@article{alphablending,
+        author          ={Porter, Thomas and Duff, Tom},
+        title           ={Compositing digital images},
+        year            ={1984},
+        issue_date      ={July 1984},
+        publisher       ={Association for Computing Machinery},
+        address         ={New York, NY, USA},
+        volume          ={18},
+        number          ={3},
+        issn            ={0097-8930},
+        url             ={https://doi.org/10.1145/964965.808606},
+        doi             ={10.1145/964965.808606},
+        abstract        ={Most computer graphics pictures have been computed all at once, so that the rendering program takes care of all computations relating to the overlap of objects. There are several applications, however, where elements must be rendered separately, relying on compositing techniques for the anti-aliased accumulation of the full image. This paper presents the case for four-channel pictures, demonstrating that a matte component can be computed similarly to the color channels. The paper discusses guidelines for the generation of elements and the arithmetic for their arbitrary compositing.},
+        journal         ={SIGGRAPH Comput. Graph.},
+        month           =jan,
+        pages           ={253–259},
+        numpages        ={7},
+        keywords        ={Visible surface algorithms, Matte channel, Matte algebra, Graphics systems, Compositing}
+}
+
+@inbook{sh-ex-02,
+        author          ={Sloan, Peter-Pike and Kautz, Jan and Snyder, John},
+        title           ={Precomputed Radiance Transfer for Real-Time Rendering in Dynamic, Low-Frequency Lighting Environments},
+        year            ={2023},
+        isbn            ={9798400708978},
+        publisher       ={Association for Computing Machinery},
+        address         ={New York, NY, USA},
+        edition         ={1},
+        url             ={https://doi.org/10.1145/3596711.3596749},
+        abstract        ={We present a new, real-time method for rendering diffuse and glossy objects in low-frequency lighting environments that captures soft shadows, interreflections, and caustics. As a preprocess, a novel global transport simulator creates functions over the object's surface representing transfer of arbitrary, low-frequency incident lighting into transferred radiance which includes global effects like shadows and interreflections from the object onto itself. At run-time, these transfer functions are applied to actual incident lighting. Dynamic, local lighting is handled by sampling it close to the object every frame; the object can also be rigidly rotated with respect to the lighting and vice versa. Lighting and transfer functions are represented using low-order spherical harmonics. This avoids aliasing and evaluates efficiently on graphics hardware by reducing the shading integral to a dot product of 9 to 25 element vectors for diffuse receivers. Glossy objects are handled using matrices rather than vectors. We further introduce functions for radiance transfer from a dynamic lighting environment through a preprocessed object to neighboring points in space. These allow soft shadows and caustics from rigidly moving objects to be cast onto arbitrary, dynamic receivers. We demonstrate real-time global lighting effects with this approach. Keywords: Graphics Hardware, Illumination, Monte Carlo Techniques, Rendering, Shadow Algorithms.},
+        booktitle       ={Seminal Graphics Papers: Pushing the Boundaries, Volume 2},
+        articleno       ={37},
+        numpages        ={10}
+}
+
+@article{sh-ex-01,
+        author          ={Ravi Ramamoorthi and Pat Hanrahan},
+        journal         ={J. Opt. Soc. Am. A},
+        keywords        ={Machine vision; Illumination; Bidirectional reflectance distribution function; Illumination; Irradiance; Machine vision; Visual perception; Zernike polynomials},
+        number          ={10},
+        pages           ={2448--2459},
+        publisher       ={Optica Publishing Group},
+        title           ={On the relationship between radiance and irradiance: determining the illumination from images of a convex Lambertian object},
+        volume          ={18},
+        month           ={Oct},
+        year            ={2001},
+        url             ={https://opg.optica.org/josaa/abstract.cfm?URI=josaa-18-10-2448},
+        doi             ={10.1364/JOSAA.18.002448},
+        abstract        ={We present a theoretical analysis of the relationship between incoming radiance and irradiance. Specifically, we address the question of whether it is possible to compute the incident radiance from knowledge of the irradiance at all surface orientations. This is a fundamental question in computer vision and inverse radiative transfer. We show that the irradiance can be viewed as a simple convolution of the incident illumination, i.e., radiance and a clamped cosine transfer function. Estimating the radiance can then be seen as a deconvolution operation. We derive a simple closed-form formula for the irradiance in terms of spherical harmonic coefficients of the incident illumination and demonstrate that the odd-order modes of the lighting with order greater than 1 are completely annihilated. Therefore these components cannot be estimated from the irradiance, contradicting a theorem that is due to Preisendorfer. A practical realization of the radiance-from-irradiance problem is the estimation of the lighting from images of a homogeneous convex curved Lambertian surface of known geometry under distant illumination, since a Lambertian object reflects light equally in all directions proportional to the irradiance. We briefly discuss practical and physical considerations and describe a simple experimental test to verify our theoretical results.},
+}
+
+@misc{mvsformer,
+        title           ={MVSFormer++: Revealing the Devil in Transformer's Details for Multi-View Stereo}, 
+        author          ={Chenjie Cao and Xinlin Ren and Yanwei Fu},
+        year            ={2024},
+        eprint          ={2401.11673},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2401.11673}, 
+}
+
+@misc{pointsetgeneration,
+        title           ={A Point Set Generation Network for 3D Object Reconstruction from a Single Image}, 
+        author          ={Haoqiang Fan and Hao Su and Leonidas Guibas},
+        year            ={2016},
+        eprint          ={1612.00603},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/1612.00603}, 
+}
+
+@InProceedings{SkeletonMesh,
+        author          ={Tang, Jiapeng and Han, Xiaoguang and Pan, Junyi and Jia, Kui and Tong, Xin},
+        title           ={A Skeleton-Bridged Deep Learning Approach for Generating Meshes of Complex Topologies From Single RGB Images},
+        booktitle       ={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+        month           ={June},
+        year            ={2019}
+}
+
+@misc{SynSin,
+        title           ={SynSin: End-to-end View Synthesis from a Single Image}, 
+        author          ={Olivia Wiles and Georgia Gkioxari and Richard Szeliski and Justin Johnson},
+        year            ={2020},
+        eprint          ={1912.08804},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/1912.08804}, 
+}
+
+@book{cvbook2001,
+        title           ={Computer Vision},
+        author          ={Shapiro, L.G. and Stockman, G.C.},
+        isbn            ={9780130307965},
+        lccn            ={00066556},
+        url             ={https://books.google.com.sg/books?id=FftDAQAAIAAJ},
+        year            ={2001},
+        publisher       ={Prentice Hall}
+}
+
+@misc{Midas,
+        title           ={Towards Robust Monocular Depth Estimation: Mixing Datasets for Zero-shot Cross-dataset Transfer}, 
+        author          ={René Ranftl and Katrin Lasinger and David Hafner and Konrad Schindler and Vladlen Koltun},
+        year            ={2020},
+        eprint          ={1907.01341},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/1907.01341}, 
+}
+
+@incollection{triangulation,
+        title           ={CHAPTER TWO - Learning to See},
+        editor          ={Ron Brinkmann},
+        booktitle       ={The Art and Science of Digital Compositing (Second Edition)},
+        publisher       ={Morgan Kaufmann},
+        edition         ={Second Edition},
+        address         ={Boston},
+        pages           ={15-51},
+        year            ={2008},
+        series          ={The Morgan Kaufmann Series in Computer Graphics},
+        isbn            ={978-0-12-370638-6},
+        doi             ={https://doi.org/10.1016/B978-0-12-370638-6.00002-X},
+        url             ={https://www.sciencedirect.com/science/article/pii/B978012370638600002X},
+        author          ={Ron Brinkmann}
+}
+
+@article{sfm-base,
+        title           ={The interpretation of structure from motion},
+        author          ={Shimon Ullman},
+        journal         ={Proceedings of the Royal Society of London. Series B. Biological Sciences},
+        year            ={1979},
+        volume          ={203},
+        pages           ={405 - 426},
+        url             ={https://api.semanticscholar.org/CorpusID:11995230}
+}
+
+@incollection{8pointalg,
+        title           ={A computer algorithm for reconstructing a scene from two projections},
+        editor          ={Martin A. Fischler and Oscar Firschein},
+        booktitle       ={Readings in Computer Vision},
+        publisher       ={Morgan Kaufmann},
+        address         ={San Francisco (CA)},
+        pages           ={61-62},
+        year            ={1987},
+        isbn            ={978-0-08-051581-6},
+        doi             ={https://doi.org/10.1016/B978-0-08-051581-6.50012-X},
+        url             ={https://www.sciencedirect.com/science/article/pii/B978008051581650012X},
+        author          ={H.C. Longuet-Higgins}
+}
+
+@book{epipolar, 
+        place           ={Cambridge}, 
+        edition         ={2}, 
+        title           ={Multiple View Geometry in Computer Vision}, 
+        publisher       ={Cambridge University Press}, 
+        author          ={Hartley, Richard and Zisserman, Andrew}, 
+        year            ={2004}
+}
+
+@book{coplanar,
+        author          ={Earl William Swokowski},
+        title           ={Calculus with Analytic Geometry},
+        edition         ={Alternate},
+        publisher       ={Prindle, Weber \& Schmidt},
+        year            ={1983},
+        url             ={https://archive.org/details/calculuswithanal02edswok},
+        note            ={Accessed: 2025-03-29}
+}
+
+@inproceedings{bundle-adj,
+        author          ={Triggs, Bill and McLauchlan, Philip F. and Hartley, Richard I. and Fitzgibbon, Andrew W.},
+        title           ={Bundle Adjustment - A Modern Synthesis},
+        year            ={1999},
+        isbn            ={3540679731},
+        publisher       ={Springer-Verlag},
+        address         ={Berlin, Heidelberg},
+        abstract        ={This paper is a survey of the theory and methods of photogrammetric bundle adjustment, aimed at potential implementors in the computer vision community. Bundle adjustment is the problem of refining a visual reconstruction to produce jointly optimal structure and viewing parameter estimates. Topics covered include: the choice of cost function and robustness; numerical optimization including sparse Newton methods, linearly convergent approximations, updating and recursive methods; gauge (datum) invariance; and quality control. The theory is developed for general robust cost functions rather than restricting attention to traditional nonlinear least squares.},
+        booktitle       ={Proceedings of the International Workshop on Vision Algorithms: Theory and Practice},
+        pages           ={298–372},
+        numpages        ={75},
+        series          ={ICCV '99}
+}
+
+@book{linear-trans,
+        author          ={Sheldon Axler},
+        title           ={Linear Algebra Done Right},
+        publisher       ={Springer Cham},
+        year            ={2023},
+        url             ={https://doi.org/10.1007/978-3-031-41026-0}
+}
+
+@book{linear-operation,
+        title           ={Robot Manipulators: Mathematics, Programming, and Control : the Computer Control of Robot Manipulators},
+        author          ={Paul, R.P.},
+        isbn            ={9780262160827},
+        lccn            ={lc81013689},
+        series          ={Artificial Intelligence Series},
+        url             ={https://books.google.de/books?id=UzZ3LAYqvRkC},
+        year            ={1981},
+        publisher       ={MIT Press}
+}
+
+@misc{sh-1,
+        title           ={Plenoxels: Radiance Fields without Neural Networks}, 
+        author          ={Alex Yu and Sara Fridovich-Keil and Matthew Tancik and Qinhong Chen and Benjamin Recht and Angjoo Kanazawa},
+        year            ={2021},
+        eprint          ={2112.05131},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2112.05131}, 
+}
+
+@article{sh-2,
+        title           ={Instant neural graphics primitives with a multiresolution hash encoding},
+        volume          ={41},
+        ISSN            ={1557-7368},
+        url             ={http://dx.doi.org/10.1145/3528223.3530127},
+        DOI             ={10.1145/3528223.3530127},
+        number          ={4},
+        journal         ={ACM Transactions on Graphics},
+        publisher       ={Association for Computing Machinery (ACM)},
+        author          ={Müller, Thomas and Evans, Alex and Schied, Christoph and Keller, Alexander},
+        year            ={2022},
+        month           =jul,
+        pages           ={1–15} 
+}
+
+% datasets
+
+@article{kitti,
+        author          ={A Geiger and P Lenz and C Stiller and R Urtasun},
+        title           ={Vision meets robotics: The KITTI dataset},
+        journal         ={The International Journal of Robotics Research},
+        volume          ={32},
+        number          ={11},
+        pages           ={1231-1237},
+        year            ={2013},
+        doi             ={10.1177/0278364913491297},
+        URL             ={https://doi.org/10.1177/0278364913491297},
+        eprint          ={https://doi.org/10.1177/0278364913491297}
+}
+
+@InProceedings{NYUv2,
+        author          ="Silberman, Nathan and Hoiem, Derek and Kohli, Pushmeet and Fergus, Rob",
+        editor          ="Fitzgibbon, Andrew and Lazebnik, Svetlana and Perona, Pietro and Sato, Yoichi and Schmid, Cordelia",
+        title           ="Indoor Segmentation and Support Inference from RGBD Images",
+        booktitle       ="Computer Vision -- ECCV 2012",
+        year            ="2012",
+        publisher       ="Springer Berlin Heidelberg",
+        address         ="Berlin, Heidelberg",
+        pages           ="746--760",
+        isbn            ="978-3-642-33715-4"
+}
+
+@InProceedings{Sintel,
+        author          ="Butler, Daniel J. and Wulff, Jonas and Stanley, Garrett B. and Black, Michael J.",
+        editor          ="Fitzgibbon, Andrew and Lazebnik, Svetlana and Perona, Pietro and Sato, Yoichi and Schmid, Cordelia",
+        title           ="A Naturalistic Open Source Movie for Optical Flow Evaluation",
+        booktitle       ="Computer Vision -- ECCV 2012",
+        year            ="2012",
+        publisher       ="Springer Berlin Heidelberg",
+        address         ="Berlin, Heidelberg",
+        pages           ="611--625",
+        isbn            ="978-3-642-33783-3"
+}
+
+@misc{ddad,
+        title           ={3D Packing for Self-Supervised Monocular Depth Estimation}, 
+        author          ={Vitor Guizilini and Rares Ambrus and Sudeep Pillai and Allan Raventos and Adrien Gaidon},
+        year            ={2020},
+        eprint          ={1905.02693},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/1905.02693}, 
+}
+
+@inproceedings{eth3d, 
+        title           ={A Multi-view Stereo Benchmark with High-Resolution Images and Multi-camera Videos}, 
+        DOI             ={10.1109/cvpr.2017.272}, 
+        publisher       ={IEEE}, 
+        author          ={Schops and Schonberger and Galliani and Sattler and Schindler and Pollefeys and Geiger}, 
+        year            ={2017}
+  }
+
+@misc{diode,
+        title           ={DIODE: A Dense Indoor and Outdoor DEpth Dataset}, 
+        author          ={Igor Vasiljevic and Nick Kolkin and Shanyi Zhang and Ruotian Luo and Haochen Wang and Falcon Z. Dai and Andrea F. Daniele and Mohammadreza Mostajabi and Steven Basart and Matthew R. Walter and Gregory Shakhnarovich},
+        year            ={2019},
+        eprint          ={1908.00463},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/1908.00463}, 
+}
+
+@techreport{original-gs,
+        author          ={Westover, Lee A},
+        title           ={SPLATTING: A Parallel, Feed-Forward Volume Rendering Algorithm},
+        year            ={1991},
+        publisher       ={University of North Carolina at Chapel Hill},
+        address         ={USA}
+}
+
+% NeRF
+
+@misc{nerf,
+        title           ={NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis}, 
+        author          ={Ben Mildenhall and Pratul P. Srinivasan and Matthew Tancik and Jonathan T. Barron and Ravi Ramamoorthi and Ren Ng},
+        year            ={2020},
+        eprint          ={2003.08934},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2003.08934}, 
+}
+
+@misc{TensoRF,
+        title           ={TensoRF: Tensorial Radiance Fields}, 
+        author          ={Anpei Chen and Zexiang Xu and Andreas Geiger and Jingyi Yu and Hao Su},
+        year            ={2022},
+        eprint          ={2203.09517},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2203.09517}, 
+}
+
+@misc{unisurf,
+        title           ={UNISURF: Unifying Neural Implicit Surfaces and Radiance Fields for Multi-View Reconstruction}, 
+        author          ={Michael Oechsle and Songyou Peng and Andreas Geiger},
+        year            ={2021},
+        eprint          ={2104.10078},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2104.10078}, 
+}
+
+@misc{neus,
+        title           ={NeuS: Learning Neural Implicit Surfaces by Volume Rendering for Multi-view Reconstruction}, 
+        author          ={Peng Wang and Lingjie Liu and Yuan Liu and Christian Theobalt and Taku Komura and Wenping Wang},
+        year            ={2023},
+        eprint          ={2106.10689},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2106.10689}, 
+}
+
+@misc{neuralangelo,
+        title           ={Neuralangelo: High-Fidelity Neural Surface Reconstruction}, 
+        author          ={Zhaoshuo Li and Thomas Müller and Alex Evans and Russell H. Taylor and Mathias Unberath and Ming-Yu Liu and Chen-Hsuan Lin},
+        year            ={2023},
+        eprint          ={2306.03092},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2306.03092}, 
+}
+
+@misc{BARF,
+        title           ={BARF: Bundle-Adjusting Neural Radiance Fields}, 
+        author          ={Chen-Hsuan Lin and Wei-Chiu Ma and Antonio Torralba and Simon Lucey},
+        year            ={2021},
+        eprint          ={2104.06405},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2104.06405}, 
+}
+
+@misc{learned-init,
+        title           ={Learned Initializations for Optimizing Coordinate-Based Neural Representations}, 
+        author          ={Matthew Tancik and Ben Mildenhall and Terrance Wang and Divi Schmidt and Pratul P. Srinivasan and Jonathan T. Barron and Ren Ng},
+        year            ={2021},
+        eprint          ={2012.02189},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2012.02189}, 
+}
+
+@misc{nerfw,
+        title           ={NeRF in the Wild: Neural Radiance Fields for Unconstrained Photo Collections}, 
+        author          ={Ricardo Martin-Brualla and Noha Radwan and Mehdi S. M. Sajjadi and Jonathan T. Barron and Alexey Dosovitskiy and Daniel Duckworth},
+        year            ={2021},
+        eprint          ={2008.02268},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2008.02268}, 
+}
+
+@misc{relight,
+        title           ={NeRV: Neural Reflectance and Visibility Fields for Relighting and View Synthesis}, 
+        author          ={Pratul P. Srinivasan and Boyang Deng and Xiuming Zhang and Matthew Tancik and Ben Mildenhall and Jonathan T. Barron},
+        year            ={2020},
+        eprint          ={2012.03927},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2012.03927}, 
+}
+
+@misc{plenoctrees,
+        title           ={PlenOctrees for Real-time Rendering of Neural Radiance Fields}, 
+        author          ={Alex Yu and Ruilong Li and Matthew Tancik and Hao Li and Ren Ng and Angjoo Kanazawa},
+        year            ={2021},
+        eprint          ={2103.14024},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2103.14024}, 
+}
+
+@misc{snerg,
+        title           ={Baking Neural Radiance Fields for Real-Time View Synthesis}, 
+        author          ={Peter Hedman and Pratul P. Srinivasan and Ben Mildenhall and Jonathan T. Barron and Paul Debevec},
+        year            ={2021},
+        eprint          ={2103.14645},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2103.14645}, 
+}
+
+@article{inerf,
+        title           ={Instant neural graphics primitives with a multiresolution hash encoding},
+        volume          ={41},
+        ISSN            ={1557-7368},
+        url             ={http://dx.doi.org/10.1145/3528223.3530127},
+        DOI             ={10.1145/3528223.3530127},
+        number          ={4},
+        journal         ={ACM Transactions on Graphics},
+        publisher       ={Association for Computing Machinery (ACM)},
+        author          ={Müller, Thomas and Evans, Alex and Schied, Christoph and Keller, Alexander},
+        year            ={2022},
+        month           ={jul}, 
+        pages           ={1–15} 
+}
+
+% 3DGS
+
+@Article{3DGS,
+        author          ={Kerbl, Bernhard and Kopanas, Georgios and Leimk{\"u}hler, Thomas and Drettakis, George},
+        title           ={3D Gaussian Splatting for Real-Time Radiance Field Rendering},
+        journal         ={ACM Transactions on Graphics},
+        number          ={4},
+        volume          ={42},
+        month           ={July},
+        year            ={2023},
+        url             ={https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/}
+}
+
+% 3DGS-related works
+
+@misc{gs-slam,
+        title           ={GS-SLAM: Dense Visual SLAM with 3D Gaussian Splatting}, 
+        author          ={Chi Yan and Delin Qu and Dan Xu and Bin Zhao and Zhigang Wang and Dong Wang and Xuelong Li},
+        year            ={2024},
+        eprint          ={2311.11700},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2311.11700}, 
+}
+
+@misc{cg-slam,
+        title           ={CG-SLAM: Efficient Dense RGB-D SLAM in a Consistent Uncertainty-aware 3D Gaussian Field}, 
+        author          ={Jiarui Hu and Xianhao Chen and Boyin Feng and Guanglin Li and Liangjing Yang and Hujun Bao and Guofeng Zhang and Zhaopeng Cui},
+        year            ={2024},
+        eprint          ={2403.16095},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2403.16095}, 
+}
+
+@misc{3dgs-timeline,
+        title           ={Recent Advances in 3D Gaussian Splatting}, 
+        author          ={Tong Wu and Yu-Jie Yuan and Ling-Xiao Zhang and Jie Yang and Yan-Pei Cao and Ling-Qi Yan and Lin Gao},
+        year            ={2024},
+        eprint          ={2403.11134},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2403.11134}, 
+}
+
+@misc{mipsplat,
+        title           ={Mip-Splatting: Alias-free 3D Gaussian Splatting}, 
+        author          ={Zehao Yu and Anpei Chen and Binbin Huang and Torsten Sattler and Andreas Geiger},
+        year            ={2023},
+        eprint          ={2311.16493},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2311.16493}, 
+}
+
+@misc{splatam,
+        title           ={SplaTAM: Splat, Track \& Map 3D Gaussians for Dense RGB-D SLAM}, 
+        author          ={Nikhil Keetha and Jay Karhade and Krishna Murthy Jatavallabhula and Gengshan Yang and Sebastian Scherer and Deva Ramanan and Jonathon Luiten},
+        year            ={2024},
+        eprint          ={2312.02126},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2312.02126}, 
+}
+
+@InProceedings{gaussianpro,
+        title           ={{G}aussian{P}ro: 3{D} {G}aussian Splatting with Progressive Propagation},
+        author          ={Cheng, Kai and Long, Xiaoxiao and Yang, Kaizhi and Yao, Yao and Yin, Wei and Ma, Yuexin and Wang, Wenping and Chen, Xuejin},
+        booktitle       ={Proceedings of the 41st International Conference on Machine Learning},
+        pages           ={8123--8140},
+        year            ={2024},
+        editor          ={Salakhutdinov, Ruslan and Kolter, Zico and Heller, Katherine and Weller, Adrian and Oliver, Nuria and Scarlett, Jonathan and Berkenkamp, Felix},
+        volume          ={235},
+        series          ={Proceedings of Machine Learning Research},
+        month           ={21--27 Jul},
+        publisher       ={PMLR},
+        pdf             ={https://raw.githubusercontent.com/mlresearch/v235/main/assets/cheng24f/cheng24f.pdf},
+        url             ={https://proceedings.mlr.press/v235/cheng24f.html},
+        abstract        ={3D Gaussian Splatting (3DGS) has recently revolutionized the field of neural rendering with its high fidelity and efficiency. However, 3DGS heavily depends on the initialized point cloud produced by Structure-from-Motion (SfM) techniques. When tackling large-scale scenes that unavoidably contain texture-less surfaces, SfM techniques fail to produce enough points in these surfaces and cannot provide good initialization for 3DGS. As a result, 3DGS suffers from difficult optimization and low-quality renderings. In this paper, inspired by classic multi-view stereo (MVS) techniques, we propose GaussianPro, a novel method that applies a progressive propagation strategy to guide the densification of the 3D Gaussians. Compared to the simple split and clone strategies used in 3DGS, our method leverages the priors of the existing reconstructed geometries of the scene and utilizes patch matching to produce new Gaussians with accurate positions and orientations. Experiments on both large-scale and small-scale scenes validate the effectiveness of our method. Our method significantly surpasses 3DGS on the Waymo dataset, exhibiting an improvement of 1.15dB in terms of PSNR. Codes and data are available at https://github.com/kcheng1021/GaussianPro.}
+}
+
+
+@misc{depthsplat,
+        title           ={DepthSplat: Connecting Gaussian Splatting and Depth}, 
+        author          ={Haofei Xu and Songyou Peng and Fangjinhua Wang and Hermann Blum and Daniel Barath and Andreas Geiger and Marc Pollefeys},
+        year            ={2024},
+        eprint          ={2410.13862},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2410.13862}, 
+}
+
+@misc{depth3DGS,
+        title           ={Depth-Regularized Optimization for 3D Gaussian Splatting in Few-Shot Images}, 
+        author          ={Jaeyoung Chung and Jeongtaek Oh and Kyoung Mu Lee},
+        year            ={2024},
+        eprint          ={2311.13398},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2311.13398}, 
+}
+
+@misc{mipnerf,
+        title           ={Mip-NeRF 360: Unbounded Anti-Aliased Neural Radiance Fields}, 
+        author          ={Jonathan T. Barron and Ben Mildenhall and Dor Verbin and Pratul P. Srinivasan and Peter Hedman},
+        year            ={2022},
+        eprint          ={2111.12077},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2111.12077}, 
+}
+
+% MDE-related works
+
+@misc{midas31,
+        title           ={MiDaS v3.1 -- A Model Zoo for Robust Monocular Relative Depth Estimation}, 
+        author          ={Reiner Birkl and Diana Wofk and Matthias Müller},
+        year            ={2023},
+        eprint          ={2307.14460},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2307.14460}, 
+}
+
+@misc{metric3Dv1,
+        title           ={Metric3D: Towards Zero-shot Metric 3D Prediction from A Single Image}, 
+        author          ={Wei Yin and Chi Zhang and Hao Chen and Zhipeng Cai and Gang Yu and Kaixuan Wang and Xiaozhi Chen and Chunhua Shen},
+        year            ={2023},
+        eprint          ={2307.10984},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2307.10984}, 
+}
+
+@article{metric3Dv2,
+        title           ={Metric3D v2: A Versatile Monocular Geometric Foundation Model for Zero-Shot Metric Depth and Surface Normal Estimation},
+        volume          ={46},
+        ISSN            ={1939-3539},
+        url             ={http://dx.doi.org/10.1109/TPAMI.2024.3444912},
+        DOI             ={10.1109/tpami.2024.3444912},
+        number          ={12},
+        journal         ={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+        publisher       ={Institute of Electrical and Electronics Engineers (IEEE)},
+        author          ={Hu, Mu and Yin, Wei and Zhang, Chi and Cai, Zhipeng and Long, Xiaoxiao and Chen, Hao and Wang, Kaixuan and Yu, Gang and Shen, Chunhua and Shen, Shaojie},
+        year            ={2024},
+        month           =dec, 
+        pages           ={10579–10596}
+}
+
+@misc{zerodepth,
+        title           ={Towards Zero-Shot Scale-Aware Monocular Depth Estimation}, 
+        author          ={Vitor Guizilini and Igor Vasiljevic and Dian Chen and Rares Ambrus and Adrien Gaidon},
+        year            ={2023},
+        eprint          ={2306.17253},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2306.17253}, 
+}
+
+@misc{dinov2,
+        title           ={DINOv2: Learning Robust Visual Features without Supervision}, 
+        author          ={Maxime Oquab and Timothée Darcet and Théo Moutakanni and Huy Vo and Marc Szafraniec and Vasil Khalidov and Pierre Fernandez and Daniel Haziza and Francisco Massa and Alaaeldin El-Nouby and Mahmoud Assran and Nicolas Ballas and Wojciech Galuba and Russell Howes and Po-Yao Huang and Shang-Wen Li and Ishan Misra and Michael Rabbat and Vasu Sharma and Gabriel Synnaeve and Hu Xu and Hervé Jegou and Julien Mairal and Patrick Labatut and Armand Joulin and Piotr Bojanowski},
+        year            ={2024},
+        eprint          ={2304.07193},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2304.07193}, 
+}
+
+@article{mde-navigation,
+        author          ={ZunShang Zhu and Ang Su and HaiBo Liu and Yang Shang and QiFeng Yu},
+        title           ={Vision navigation for aircrafts based on 3D reconstruction from real-time imeage sequences},
+        journal         ={Science China Technological Sciences},
+        year            ={2015},
+        url             ={https://doi.org/10.1007/s11431-015-5828-x},
+        doi             ={10.1007/s11431-015-5828-x}
+}
+
+@article{mde-obstacle,
+        author          ={Xun Chai and Feng Gao and ChenKun Qi and Yang Pan and YiLin Xu and Yue Zhao},
+        title           ={Obstacle avoidance for a hexapod robot in unknown environment},
+        journal         ={Science China Technological Sciences},
+        year            ={2017},
+        url             ={https://doi.org/10.1007/s11431-016-9017-6},
+        doi             ={10.1007/s11431-016-9017-6}
+}
+
+@inproceedings{slam-ex,
+        title           ="A robust RGB-D SLAM algorithm",
+        abstract        ="Recently RGB-D sensors have become very popular in the area of Simultaneous Localisation and Mapping (SLAM). The major advantage of these sensors is that they provide a rich source of 3D information at relatively low cost. Unfortunately, these sensors in their current forms only have a range accuracy of up to 4 metres. Many techniques which perform SLAM using RGB-D cameras rely heavily on the depth and are restrained to office type and geometrically structured environments. In this paper, a switching based algorithm is proposed to heuristically choose between RGB-BA and RGBD-BA based local maps building. Furthermore, a low cost and consistent optimisation approach is used to join these maps. Thus the potential of both RGB and depth image information are exploited to perform robust SLAM in more general indoor cases. Validation of the proposed algorithm is performed by mapping a large scale indoor scene where traditional RGB-D mapping techniques are not possible.",
+        author          ="Gibson Hu and Shoudong Huang and Liang Zhao and Alen Alempijevic and Gamini Dissanayake",
+        year            ="2012",
+        month           =dec,
+        day             ="20",
+        doi             ="10.1109/IROS.2012.6386103",
+        language        ="English",
+        isbn            ="9781467317375",
+        series          ="IEEE International Conference on Intelligent Robots and Systems",
+        publisher       ="Institute of Electrical and Electronics Engineers",
+        pages           ="1714--1719",
+        booktitle       ="2012 IEEE/RSJ International Conference on Intelligent Robots and Systems",
+        address         ="United States",
+        note            ="25th IEEE/RSJ International Conference on Robotics and Intelligent Systems, IROS 2012 ; Conference date: 07-10-2012 Through 12-10-2012",
+}
+
+@misc{mde-nn-1,
+        title           ={High Quality Monocular Depth Estimation via Transfer Learning}, 
+        author          ={Ibraheem Alhashim and Peter Wonka},
+        year            ={2019},
+        eprint          ={1812.11941},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/1812.11941}, 
+}
+
+@misc{mde-nn-2,
+        title           ={Deeper Depth Prediction with Fully Convolutional Residual Networks}, 
+        author          ={Iro Laina and Christian Rupprecht and Vasileios Belagiannis and Federico Tombari and Nassir Navab},
+        year            ={2016},
+        eprint          ={1606.00373},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/1606.00373}, 
+}
+
+@article{mde-nn-3,
+        title           ={Monocular depth estimation based on deep learning: An overview},
+        volume          ={63},
+        ISSN            ={1869-1900},
+        url             ={http://dx.doi.org/10.1007/s11431-020-1582-8},
+        DOI             ={10.1007/s11431-020-1582-8},
+        number          ={9},
+        journal         ={Science China Technological Sciences},
+        publisher       ={Springer Science and Business Media LLC},
+        author          ={Zhao, ChaoQiang and Sun, QiYu and Zhang, ChongZhen and Tang, Yang and Qian, Feng},
+        year            ={2020},
+        month           =jun,
+        pages           ={1612–1627} 
+}
+
+% Related Works (Main Analysis Models)
+
+@inproceedings{2DGS,
+        series          ={SIGGRAPH ’24},
+        title           ={2D Gaussian Splatting for Geometrically Accurate Radiance Fields},
+        url             ={http://dx.doi.org/10.1145/3641519.3657428},
+        DOI             ={10.1145/3641519.3657428},
+        booktitle       ={Special Interest Group on Computer Graphics and Interactive Techniques Conference Conference Papers ’24},
+        publisher       ={ACM},
+        author          ={Huang, Binbin and Yu, Zehao and Chen, Anpei and Geiger, Andreas and Gao, Shenghua},
+        year            ={2024},
+        month           =jul, 
+        pages           ={1–11},
+        collection      ={SIGGRAPH ’24}
+}
+
+@misc{DepthAnythingV1,
+        title           ={Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data}, 
+        author          ={Lihe Yang and Bingyi Kang and Zilong Huang and Xiaogang Xu and Jiashi Feng and Hengshuang Zhao},
+        year            ={2024},
+        eprint          ={2401.10891},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2401.10891}, 
+}
+
+@misc{radegs,
+        title           ={RaDe-GS: Rasterizing Depth in Gaussian Splatting}, 
+        author          ={Baowen Zhang and Chuan Fang and Rakesh Shrestha and Yixun Liang and Xiaoxiao Long and Ping Tan},
+        year            ={2024},
+        eprint          ={2406.01467},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.GR},
+        url             ={https://arxiv.org/abs/2406.01467}, 
+}
+
+@misc{DepthAnythingV2,
+        title           ={Depth Anything V2}, 
+        author          ={Lihe Yang and Bingyi Kang and Zilong Huang and Zhen Zhao and Xiaogang Xu and Jiashi Feng and Hengshuang Zhao},
+        year            ={2024},
+        eprint          ={2406.09414},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2406.09414}, 
+}
+
+@misc{ZoeDepth,
+        title           ={ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth}, 
+        author          ={Shariq Farooq Bhat and Reiner Birkl and Diana Wofk and Peter Wonka and Matthias Müller},
+        year            ={2023},
+        eprint          ={2302.12288},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2302.12288}, 
+}
+
+@misc{gs2mesh,
+        title           ={GS2Mesh: Surface Reconstruction from Gaussian Splatting via Novel Stereo Views}, 
+        author          ={Yaniv Wolf and Amit Bracha and Ron Kimmel},
+        year            ={2024},
+        eprint          ={2404.01810},
+        archivePrefix   ={arXiv},
+        primaryClass    ={cs.CV},
+        url             ={https://arxiv.org/abs/2404.01810}, 
+}
+

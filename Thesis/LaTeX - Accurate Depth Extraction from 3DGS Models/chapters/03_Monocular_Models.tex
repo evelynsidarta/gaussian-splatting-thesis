@@ -1,0 +1,34 @@
+% !TeX root = ../main.tex
+% Add the above to each chapter to make compiling the PDF easier in some editors.
+
+\chapter{Monocular Depth Estimation Models}\label{chapter:monocular_models}
+
+% Mainly: Describe the main methodology, the key features, differences to the original model, compare
+
+In this chapter, we briefly go through the monocular depth estimation models used in this research.
+
+\section{ZoeDepth}
+ZoeDepth \parencite{ZoeDepth} is a pioneering work on Monocular Depth Estimation (MDE). Previously, MDE models focus on either providing Relative Depth Estimation (prediction of depth within a scene without providing actual scale) or Metric Depth Estimation (prediction of depth in absolute units, e.g. meters). ZoeDepth combines both approaches in order to achieve a better generalization ability with a high accuracy.
+
+There are two main stages in the proposed framework for ZoeDepth: 1) pre-training an encoder-decoder model to estimate relative depth in order to achieve high generalization, and 2) fine-tuning on datasets with metric depth annotation in order to be able to adjust relative depth predictions to metric scale accurately. This is done using a similar training strategy to MiDaS \parencite{Midas} and attaching a \textit{metric bins module} that outputs metric depth to the decoder of the model. Through this framework, ZoeDepth is able to achieve zero-shot transfer capability with good generalization and also provide state-of-art depth estimation capability when fine-tuned to specific datasets.
+
+\section{Depth Anything v1}
+Depth Anything \parencite{DepthAnythingV1} is a current state-of-art generalist MDE model that is able to create an accurate depth map estimate of any images under any situations.  In order to do this, Depth Anything v1 mainly takes advantage of two simple strategies: 1) using data augmentation tools to develop more complex scenarios as training material for the model and 2) the model is supervised and directed to inherit rich semantic priors from the usage of pre-trained encoders.
+
+Depth Anything v1 is mainly based on MiDaS \parencite{Midas}, a pioneering MDE foundation model which was able to demonstrate zero-shot ability, which means that it is able to achieve an accurate prediction on previously unseen images. The early MiDaS model is limited, in that it does not have enough data coverage, which means that it will perform poorly on certain circumstances. The first iteration of Depth Anything aims to address this by scaling up the dataset, mainly leveraging large-scale unlabeled monocular data, which amounts to approximately 62 million unlabeled images. This is done by first creating an engine to automatically label these raw and unlabeled image datasets with the correct depth annotation. For this annotation tool, an initial 1.5 million already-labeled images were first collected and used to train an initial MDE model. This is then used to automatically annotate the unlabeled images in a self-learning manner.
+
+After preliminary evaluation, however, it was found that simply being able to use a larger-scale unlabeled data does not necessarily improve the performance of initial models. Therefore, it was proposed that the models are trained with a more difficult optimization target during the learning process. Furthermore, the use of the second strategy is proposed in order to guide the model using previous pre-existing encoders trained on large datasets. This allows the model to better identify visual information on the objects in every image and how they relate to each other, which leads to overall improvement in depth estimation.
+
+Following these two core strategies, the first iteration of Depth Anything is able to produce a foundational MDE model that, when evaluated across six representative unseen datasets: KITTI \parencite{kitti}, NYUv2 \parencite{NYUv2}, Sintel \parencite{Sintel}, DDAD \parencite{ddad}, ETH3D \parencite{eth3d}, and DIODE \parencite{diode}, is able to outperform MiDaS v3.1 \parencite{midas31}, a more recent MiDaS iteration that uses more labeled datasets when compared to Depth Anything. Additionally, this model is also able to produce better results when compared to ZoeDepth when fine-tuned with metric depth.
+
+\section{Depth Anything v2}
+
+Depth Anything v2 \parencite{DepthAnythingV2} is the second iteration of the previous Depth Anything model. Compared to the previous model, it is able to produce more robust and detailed depth map predictions by using three main strategies: 1) using synthetic images instead of labeled real images, 2) improving the capacity of the teacher model, and 3) generating a large amount of pseudo-labeled real images to train student models, enhancing the generality of the model in more diverse scenarios.
+
+Through evaluating several zero-shot MDE models like Depth Anything v1 \parencite{DepthAnythingV1}, Metric3D v1 \parencite{metric3Dv1}, Metric3D v2 \parencite{metric3Dv2}, and ZeroDepth \parencite{zerodepth}, it was discovered that the usage of real labeled data has two main disadvantages: 1) labeled data often contain noise and there are often inaccuracies in the labels itself, and 2) depth map details are often overlooked. On the other side, synthetic images have very precisely labeled details and it is possible to obtain actual depth of challenging scenarios such as transparent objects or reflective surfaces easily when employing synthetic images as training material. Of course, these advantages are not without limitations; synthetic images differ in style and color distribution when compared to real life images, and can be regarded as being "too clean" and "too ordered". Furthermore, synthetic images have restricted coverage, since synthetic images are taken from scenes with clear separation (e.g. "living room" or "streets"), while in real life images the possibilities are boundless (e.g. it is totally possible to take a picture containing both the living room and the streets at the same time).
+
+Due to these problems, a pilot study was conducted to assess the performance on pre-trained encoders when fed only synthetic images. From this study, only DINOv2-G \parencite{dinov2} was found to be satisfactory and therefore able to be used as the base for the teacher model used by Depth Anything v2, since other models suffer from generalization issues.
+
+By employing the aforementioned strategies, Depth Anything v2 is able to produce models that, when compared to its predecessor \parencite{DepthAnythingV1}, are able to provide more detailed depth predictions, especially when dealing with transparent objects and object with finer details. This is also the case when comparing to ZoeDepth \parencite{ZoeDepth}; Depth Anything v2 is able to spot miniature details (e.g. densely packed objects or thin surfaces), while ZoeDepth often lumps these minuscule details together since it is unable to recognize it.
+
+

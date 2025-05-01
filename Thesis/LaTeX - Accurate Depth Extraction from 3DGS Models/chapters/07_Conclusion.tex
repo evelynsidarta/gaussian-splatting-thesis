@@ -1,0 +1,18 @@
+% !TeX root = ../main.tex
+% Add the above to each chapter to make compiling the PDF easier in some editors.
+
+\chapter{Conclusion}\label{chapter:conclusion}
+
+\section{Conclusion on the Results of the Research}
+
+In this thesis, we have explored some of the current state-of-art Gaussian Splatting and Monocular Depth Estimation models and evaluated it on different metrics, both visual and statistical. Our research started by doing a thorough review of the current available Gaussian Splatting and Monocular Depth Estimation methods, carefully dissecting each layer of the main method and their optimizations and laying them out as groundwork for our evaluation.
+
+Afterwards, we perused some synthetic models to find a simple model for our evaluation; the Chocolate Easter Bunny was chosen and synthetic data was extracted from it with the help of Blender 4.3. Next, we trained the chosen GS and MDE models on our bunny images and compared the results against our chosen evaluation benchmarks. Here, we were able to compare both visual and statistical results of our trained models, thus highlighting the exceptional performances of RaDe-GS, 2DGS, and also the MDE models like DepthAnything.
+
+\section{Suggestions for Further Improvements to the Research}
+
+We recognize nonetheless that there is a lot of room for improvement that can be made from this thesis. First, we recognize that using only the Chocolate Easter Bunny model as subject for evaluation is highly detrimental to our evaluation; some models simply do not perform well statistically on synthetic data, and small problems like background bleeding ended up being more detrimental to the overall performance of the models. Creating and using more datasets as evaluation material will improve the reliability of our evaluation. It may also be beneficial to include datasets that depict real-life scenarios, since these models are mostly trained for that purpose.
+
+Furthermore, simply comparing depth maps is not a good indicator of the overall quality of Gaussian Splatting models, since rogue splats with very low opacity that end up not mattering at all when looking at rendered results may end up severely affecting the results of the evaluation. It would be nice to devise some methods to take into more account the visibility of the Gaussians when comparing the depth maps. A more comprehensive evaluation method needs to be devised in order to more properly evaluate these models.
+
+In the future, we would like to also be able to include more models in our evaluation; Gaussian Splatting is still a very rapidly expanding method, since it is relatively new. There are still a lot of room for improvements on the current models, especially on more specific points of interest such as dealing with highly reflective materials and transparent objects. Being able to include more models will allow for a more thorough overview of the GS method to be laid down. 

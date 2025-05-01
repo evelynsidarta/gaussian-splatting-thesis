@@ -1,0 +1,10 @@
+\chapter{\abstractname}
+
+Gaussian Splatting is a rapidly-developing breakthrough in the field of visualization of 3D scene reconstruction. It has a wide range of application, spanning multiple fields like medical, aerospace, and even aviation and entertainment. With the discovery of the 3D Gaussian Splatting technique, it is now possible to do real-time rendering of scene reconstructions.
+
+One of the most important aspects of 3DGS is depth estimation. Accurate depth extraction is needed in order to be able to capture and represent the scenes properly. This is, however, a difficult and ill-posed problem due to the nature of Gaussians and the infinite possibilities of scaling when extracting depth values.
+
+This thesis aims to compile and dive into the depth extraction aspect of the 3D Gaussian Splatting method for scene reconstruction and examine some more current state-of-art Gaussian Splatting methods in comparison to one another. For a more complete comparison, we also take a look at current models for Monocular Depth Estimation tasks and compare their performances to the Gaussian Splatting methods. In order to do this, we selected a simple model to be the baseline for evaluation, extracted depth values from the model, and used it as training input for the models. A total of 3 MDE models are selected for the evaluation process: 1) Depth Anything v1, 2) Depth Antyhing v2, and 3) ZoeDepth, while a total of 4 GS models are used in this process: 1) 3DGS, 2) 2DGS, 3) RaDe-GS, and 4) GS2Mesh. Subsequently, the results of the training are evaluated statistically and visually and compared to each other. Here, we highlight models with exceptional performance like RaDe-GS and 2DGS, while also identifying weaknesses in the current available methods.
+
+\medskip
+\noindent{\textbf{keywords:} Gaussian Splatting, Monocular Depth Estimation, Depth Extraction}

@@ -1,0 +1,86 @@
+\RequirePackage[l2tabu,orthodox]{nag}
+
+% TODO: decide if one-sided/two-sided
+%\documentclass[headsepline,footsepline,footinclude=false,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc,BCOR=12mm,DIV=12]{scrbook} % two-sided
+\documentclass[headsepline,footsepline,footinclude=false,oneside,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc]{scrbook} % one-sided
+
+% TODO: change citation style in settings
+\input{settings}
+
+% TODO: change thesis information
+\newcommand*{\getUniversity}{Technische Universität München}
+\newcommand*{\getFaculty}{School of Computation, Information and Technology - Informatics}
+\newcommand*{\getTitle}{Accurate Depth Extraction from 3DGS Models}
+\newcommand*{\getTitleGer}{Genaue Tiefenextraktion aus 3DGS-Modellen}
+\newcommand*{\getAuthor}{Evelyn Regina Sidarta}
+\newcommand*{\getDoctype}{Bachelor's Thesis in Informatics: Games Engineering}
+\newcommand*{\getSupervisor}{Prof. Dr. Rüdiger Westermann}
+\newcommand*{\getAdvisor}{Prof. Dr. Rüdiger Westermann, M.Sc. Han Liang}
+\newcommand*{\getSubmissionDate}{April 1, 2025}
+\newcommand*{\getSubmissionLocation}{Munich}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\begin{document}
+
+% Set page numbering to avoid "destination with the same identifier has been already used" warning for cover page.
+% (see https://en.wikibooks.org/wiki/LaTeX/Hyperlinks#Problems_with_Links_and_Pages).
+\pagenumbering{alpha}
+\input{pages/cover}
+
+\frontmatter{}
+
+\input{pages/title}
+\input{pages/disclaimer}
+\input{pages/acknowledgments}
+\input{pages/abstract}
+\microtypesetup{protrusion=false}
+\tableofcontents{}
+\microtypesetup{protrusion=true}
+
+\mainmatter{}
+
+% \input{chapters/template}
+
+\input{chapters/01_Introduction}
+\input{chapters/02_Background}
+\input{chapters/03_Monocular_Models}
+\input{chapters/04_3DGS_Derivatives}
+\input{chapters/05_Methodology}
+\input{chapters/06_Evaluation}
+\input{chapters/07_Conclusion}
+
+\appendix{}
+
+\microtypesetup{protrusion=false}
+\listoffigures{}
+\listoftables{}
+\microtypesetup{protrusion=true}
+\printbibliography{}
+
+\end{document}

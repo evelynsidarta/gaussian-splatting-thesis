@@ -1,0 +1,30 @@
+% !TeX root = ../main.tex
+% Add the above to each chapter to make compiling the PDF easier in some editors.
+
+\chapter{Introduction}\label{chapter:introduction}
+
+\section{Motivation}
+
+Visualization and reconstruction of three-dimensional (3D) scenes has always been a very important topic of interest across multiple disciplines- both scientific and social. It is used to aid in multiple different fields, such as in medical imaging, aerospace and aviation, and even in the entertainment field. In recent years, we see the rise of Neural Radiance Field (NeRF) methods that, unlike traditional rendering methods, are able to reconstruct accurate 3D representation of scenes from collections of two-dimensional (2D) images effectively with the help of deep learning and usage of neural networks \parencite{nerf}. The NeRF model also opens up the way for other practical implementations like novel view synthesis and geometry extraction and reconstruction from 2D scenes.
+
+One major drawback of the employment of neural network in NeRF methods, however, lies in its costly resource consumption \parencite{TensoRF}. Achieving high fidelity models require investing a huge amount time in training models and rendering. While able to provide impressive and highly-accurate results, this method still fails to achieve real-times display rates, thus hindering its application in scenarios where real-time rendering is important, particularly in virtual reality and computer vision sectors.
+
+Consequently, 3D Gaussian Splatting (3DGS), a new method which revolutionized the field of real-time rendering, emerged. 3DGS is a method that employs 3D Gaussians \parencite{3DGS} instead of using meshes to reconstruct a scene. Traditionally, in order to be able to construct a 3D scene, data from 2D images need to first be converted into surfaces or line primitives \parencite{mvsformer} \parencite{pointsetgeneration} \parencite{SkeletonMesh}. The introduction of the splatting technique allows this step to entirely be skipped and replaced by the construction of 3D Gaussians instead. These 3D Gaussians allow for the scene to be represented through continuous functions that retain density and radiance at a point, which, in turn, allows for faster and much less expensive--but still accurate--reconstruction of the 3D scene and the ability to support real-time rendering of the 3D scenes.
+
+Despite its massive success in the field of novel view synthesis, there is a yet to be fully-explored potential of the employment of this method specifically for accurate depth extraction. In order to be able to capture and represent 3D scenes accurately, accurate depth estimation of objects inside the scene is needed. However, due to the unstructured and sparse nature of the 3D Gaussians, it is difficult to accurately get depth data from the fully-reconstructed scenes, especially in scenes laden with details or scenes with reflective surfaces \parencite{depthsplat}. Lately, there has been some advancements in this field of research with the release of works specifically exploring depth or accurate geometrical extraction \parencite{radegs} \parencite{depth3DGS} \parencite{2DGS} \parencite{gs2mesh} in conjunction with the usage of Gaussian Splatting. This is further supplemented with recent works in monocular depth estimation \parencite{ZoeDepth} \parencite{DepthAnythingV1} \parencite{DepthAnythingV2}, which aim to be able to identify depth accurately using only a single image source.
+
+\section{Contribution}
+
+This paper aims to review the mechanisms of current current available state-of-art methods for depth estimation and compare them to each other and also the currently available monocular depth estimation models. Firstly, the paper will delve deeper into the original implementation of the 3DGS method \parencite{3DGS}, then compare this to the implementations of current state-of-art methods like two-dimensional Gaussian Splatting (2DGS) \parencite{2DGS}, RaDe-GS \parencite{radegs}, GS2Mesh \parencite{gs2mesh}, and also other monocular depth estimation methods like DepthAnything \parencite{DepthAnythingV1} \parencite{DepthAnythingV2} and ZoeDepth \parencite{ZoeDepth}. By comparing these models, we aim to be able to provide an overview of the current advancements in Gaussian Splatting, specifically pertaining to the issue of depth extraction.
+
+\section{Outline}
+
+In this first chapter we have explained the underlying motivation behind this work and also the main goal of the creation of this paper. The second chapter provides a concise overview over main concepts relevant to this publication, specifically about the original 3DGS method: its structure, history, and underlying mechanisms. Here we also explain concepts that lay the groundwork for the current state-of-art methods in Gaussian Splatting and monocular depth extraction.
+
+The third and fourth chapters provide an overview of current state-of-art methods in depth extraction from 3DGS models and, along with it, an overview of current monocular depth extraction methods that are used as comparison. Here we also compare and contrast differences of each methods to the original 3DGS method.
+
+In the fifth chapter, we explain details of the methodology of our research: how the data is prepared and processed and then used as input to our models and how depth data is then extracted from the output of the models. We also outline the entire post-processing of the data, as well as the visual and statistical evaluation process.
+
+In the sixth chapter, we provide both visual and statistical comparisons of depth data extracted from 3DGS, 2DGS, RaDe-GS, DepthAnything v1, DepthAnything v2, ZoeDepth, and GS2Mesh and compare them to the ground truth. Afterwards, we discuss the quality of these methods both statistically and visually in comparison to the original method and to each other.
+
+In the seventh chapter, we draw a conclusion based on the results of our discussion and also discuss potential improvements for further research.
